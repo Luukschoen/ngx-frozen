@@ -105,6 +105,8 @@ export class BubbleChartComponent extends BaseChartComponent {
   @Input() schemeType = 'ordinal';
   @Input() legendPosition: string = 'right';
   @Input() tooltipDisabled: boolean = false;
+  @Input() xAxisMinScale: any;
+  @Input() yAxisMinScale: any;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
@@ -270,7 +272,7 @@ export class BubbleChartComponent extends BaseChartComponent {
     }
 
     this.xScaleType = getScaleType(values);
-    return getDomain(values, this.xScaleType, this.autoScale);
+    return getDomain(values, this.xScaleType, this.autoScale, this.xAxisMinScale);
   }
 
   getYDomain(): any[] {
@@ -285,7 +287,7 @@ export class BubbleChartComponent extends BaseChartComponent {
     }
 
     this.yScaleType = getScaleType(values);
-    return getDomain(values, this.yScaleType, this.autoScale);
+    return getDomain(values, this.yScaleType, this.autoScale, this.yAxisMinScale);
   }
 
   getRDomain(): number[] {

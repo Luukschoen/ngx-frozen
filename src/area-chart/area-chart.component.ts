@@ -147,6 +147,8 @@ export class AreaChartComponent extends BaseChartComponent {
   @Input() yAxisTickFormatting: any;
   @Input() roundDomains: boolean = false;
   @Input() tooltipDisabled: boolean = false;
+  @Input() xAxisMinScale: any;
+  @Input() yAxisMinScale: number = 0;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
@@ -257,19 +259,26 @@ export class AreaChartComponent extends BaseChartComponent {
 
     if (this.scaleType === 'time') {
       const min = Math.min(...values);
-      const max = Math.max(...values);
-      domain = [min, max];
+
+      if (this.xAxisMinScale) {
+        domain = [min, Math.max(this.xAxisMinScale, ...values)];
+      } else {
+        domain = [min, Math.max(...values)];
+      }
     } else if (this.scaleType === 'linear') {
       values = values.map(v => Number(v));
       const min = Math.min(...values);
-      const max = Math.max(...values);
-      domain = [min, max];
+
+      if (this.xAxisMinScale) {
+        domain = [min, Math.max(this.xAxisMinScale, ...values)];
+      } else {
+        domain = [min, Math.max(...values)];
+      }
     } else {
       domain = values;
     }
 
     this.xSet = values;
-
     return domain;
   }
 
@@ -285,7 +294,8 @@ export class AreaChartComponent extends BaseChartComponent {
     }
 
     let min = Math.min(...domain);
-    const max = Math.max(...domain);
+    const max = Math.max(this.yAxisMinScale, ...domain);
+
     if (!this.autoScale) {
       min = Math.min(0, min);
     }

@@ -148,6 +148,8 @@ export class AreaChartStackedComponent extends BaseChartComponent {
   @Input() yAxisTickFormatting: any;
   @Input() roundDomains: boolean = false;
   @Input() tooltipDisabled: boolean = false;
+  @Input() xAxisMinScale: any;
+  @Input() yAxisMinScale: number = 0;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
@@ -288,13 +290,21 @@ export class AreaChartStackedComponent extends BaseChartComponent {
 
     if (this.scaleType === 'time') {
       const min = Math.min(...values);
-      const max = Math.max(...values);
-      domain = [new Date(min), new Date(max)];
+
+      if (this.xAxisMinScale) {
+        domain = [min, Math.max(this.xAxisMinScale, ...values)];
+      } else {
+        domain = [min, Math.max(...values)];
+      }
     } else if (this.scaleType === 'linear') {
       values = values.map(v => Number(v));
       const min = Math.min(...values);
-      const max = Math.max(...values);
-      domain = [min, max];
+
+      if (this.xAxisMinScale) {
+        domain = [min, Math.max(this.xAxisMinScale, ...values)];
+      } else {
+        domain = [min, Math.max(...values)];
+      }
     } else {
       domain = values;
     }
@@ -329,7 +339,7 @@ export class AreaChartStackedComponent extends BaseChartComponent {
     }
 
     const min = Math.min(0, ...domain);
-    const max = Math.max(...domain);
+    const max = Math.max(this.yAxisMinScale, ...domain);
     return [min, max];
   }
 

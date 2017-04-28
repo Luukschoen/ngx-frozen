@@ -108,6 +108,7 @@ export class BarHorizontalStackedComponent extends BaseChartComponent {
   @Input() yAxisTickFormatting: any;
   @Input() barPadding = 8;
   @Input() roundDomains: boolean = false;
+  @Input() xAxisMinScale: number = 0;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
@@ -196,9 +197,8 @@ export class BarHorizontalStackedComponent extends BaseChartComponent {
     }
 
     const min = Math.min(0, ...domain);
-    const max = Math.max(...domain);
-
-    return [ min, max ];
+    const max = Math.max(this.xAxisMinScale, ...domain);
+    return [min, max];
   }
 
   getYScale(): any {
