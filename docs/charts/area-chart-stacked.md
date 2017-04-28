@@ -30,6 +30,8 @@
 | gradient            | boolean  | false         | fill elements with a gradient instead of a solid color                                                                           |
 | activeEntries       | object[] | []            | elements to highlight                                                                                                            |
 | tooltipDisabled     | boolean  | false         | show or hide the tooltip                                                                                                         |
+| xAxisMinScale       | object   |               | force x axis scaling to provided value (ignored if chart data contains a higher value)                                           |
+| yAxisMinScale       | number   |               | force y axis scaling to provided value (ignored if chart data contains a higher value)                                           |
 
 # Outputs
 

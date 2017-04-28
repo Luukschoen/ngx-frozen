@@ -27,6 +27,8 @@
 | minRadius           | number   | 3             | minimum bubble radius in px                                                                                     |
 | maxRadius           | number   | 10            | maximum bubble radius in px                                                                                     |
 | tooltipDisabled     | boolean  | false         | show or hide the tooltip                                                                                        |
+| xAxisMinScale       | object   |               | force x axis scaling to provided value (ignored if chart data contains a higher value)                          |
+| yAxisMinScale       | object   |               | force y axis scaling to provided value (ignored if chart data contains a higher value)                          |
 
 # Outputs
 

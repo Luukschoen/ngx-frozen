@@ -28,6 +28,7 @@
 | activeEntries       | object[] | []            | elements to highlight                                                                                           |
 | barPadding          | number   | 8             | padding between bars in px                                                                                      |
 | tooltipDisabled     | boolean  | false         | show or hide the tooltip                                                                                        |
+| xAxisMinScale       | number   |               | force x axis scaling to provided value (ignored if chart data contains a higher value)                          |
 
 # Outputs
 
