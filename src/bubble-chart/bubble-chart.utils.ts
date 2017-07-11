@@ -33,11 +33,11 @@ export function getDomain(values, scaleType, autoScale, minScale?): number[] {
     if (scaleType === 'time') {
       const min = Math.min(...values);
 
-      if (minScale) {
-        domain = [min, Math.max(minScale, ...values)];
-      } else {
-        domain = [min, Math.max(...values)];
-      }
+      const max = minScale
+        ? Math.max(minScale, ...values)
+        : Math.max(...values);
+
+      domain = [min, max];
     } else if (scaleType === 'linear') {
       values = values.map(v => Number(v));
       let min = Math.min(...values);
@@ -46,11 +46,11 @@ export function getDomain(values, scaleType, autoScale, minScale?): number[] {
         min = Math.min(0, min);
       }
 
-      if (minScale) {
-        domain = [min, Math.max(minScale, ...values)];
-      } else {
-        domain = [min, Math.max(...values)];
-      }
+      const max = minScale
+        ? Math.max(minScale, ...values)
+        : Math.max(...values);
+
+      domain = [min, max];
     } else {
       domain = values;
     }

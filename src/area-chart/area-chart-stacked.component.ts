@@ -302,12 +302,11 @@ export class AreaChartStackedComponent extends BaseChartComponent {
     if (this.scaleType === 'time') {
       const min = Math.min(...values);
 
-      if (this.xAxisMinScale) {
-        domain = [min, Math.max(this.xAxisMinScale, ...values)];
-      } else {
-        domain = [min, Math.max(...values)];
-      }
+      const max = this.xAxisMinScale
+        ? Math.max(this.xAxisMinScale, ...values)
+        : Math.max(...values);
 
+      domain = [new Date(min), new Date(max)];
       this.xSet = [...values].sort((a, b) => {
         const aDate = a.getTime();
         const bDate = b.getTime();
@@ -319,12 +318,11 @@ export class AreaChartStackedComponent extends BaseChartComponent {
       values = values.map(v => Number(v));
       const min = Math.min(...values);
 
-      if (this.xAxisMinScale) {
-        domain = [min, Math.max(this.xAxisMinScale, ...values)];
-      } else {
-        domain = [min, Math.max(...values)];
-      }
+      const max = this.xAxisMinScale
+        ? Math.max(this.xAxisMinScale, ...values)
+        : Math.max(...values);
 
+      domain = [min, max];
       this.xSet = [...values].sort();
     } else {
       domain = values;
