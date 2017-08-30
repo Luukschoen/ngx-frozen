@@ -1,6 +1,6 @@
 {
   "name": "@swimlane/ngx-charts",
-  "version": "6.0.2",
+  "version": "6.0.2-custom",
   "description": "Declarative Charting Framework for Angular2 and beyond!",
   "main": "release/index.js",
   "typings": "release/index.d.ts",
@@ -74,22 +74,22 @@
   },
   "homepage": "https://github.com/swimlane/ngx-charts#readme",
   "peerDependencies": {
-    "@angular/common": "^4.2.x",
-    "@angular/core": "^4.2.x",
+    "@angular/common": "^4.3.x",
+    "@angular/core": "^4.3.x",
     "d3": "^4.9.x",
     "rxjs": "^5.0.x"
   },
   "devDependencies": {
-    "@angular/animations": "^4.2.5",
-    "@angular/common": "^4.2.5",
-    "@angular/compiler": "^4.2.5",
-    "@angular/compiler-cli": "^4.2.5",
-    "@angular/core": "^4.2.5",
-    "@angular/forms": "^4.2.5",
-    "@angular/http": "^4.2.5",
-    "@angular/platform-browser": "^4.2.5",
-    "@angular/platform-browser-dynamic": "^4.2.5",
-    "@angular/platform-server": "^4.2.5",
+    "@angular/animations": "^4.3.6",
+    "@angular/common": "^4.3.6",
+    "@angular/compiler": "^4.3.6",
+    "@angular/compiler-cli": "^4.3.6",
+    "@angular/core": "^4.3.6",
+    "@angular/forms": "^4.3.6",
+    "@angular/http": "^4.3.6",
+    "@angular/platform-browser": "^4.3.6",
+    "@angular/platform-browser-dynamic": "^4.3.6",
+    "@angular/platform-server": "^4.3.6",
     "@swimlane/ngx-ui": "^14.2.4",
     "@types/d3-array": "1.2.0",
     "@types/d3-brush": "1.0.7",
@@ -110,7 +110,7 @@
     "autoprefixer": "^6.7.0",
     "awesome-typescript-loader": "~3.1.2",
     "clean-webpack-plugin": "^0.1.15",
-    "codelyzer": "^3.0.0-beta.4",
+    "codelyzer": "^3.1.2",
     "copy-webpack-plugin": "^4.0.0",
     "core-js": "2.4.1",
     "cpx": "^1.5.0",
@@ -159,6 +159,6 @@
     "webpack-dev-server": "^2.2.0",
     "webpack-merge": "^4.1.0",
     "webpack-notifier": "^1.5.0",
-    "zone.js": "^0.8.4"
+    "zone.js": "0.8.16"
   }
 }
