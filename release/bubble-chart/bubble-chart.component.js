@@ -145,7 +145,7 @@ var BubbleChartComponent = (function (_super) {
             }
         }
         this.xScaleType = getScaleType(values);
-        return getDomain(values, this.xScaleType, this.autoScale);
+        return getDomain(values, this.xScaleType, this.autoScale, this.xAxisMinScale);
     };
     BubbleChartComponent.prototype.getYDomain = function () {
         var values = [];
@@ -159,7 +159,7 @@ var BubbleChartComponent = (function (_super) {
             }
         }
         this.yScaleType = getScaleType(values);
-        return getDomain(values, this.yScaleType, this.autoScale);
+        return getDomain(values, this.yScaleType, this.autoScale, this.yAxisMinScale);
     };
     BubbleChartComponent.prototype.getRDomain = function () {
         var min = Infinity;
@@ -259,6 +259,8 @@ BubbleChartComponent.propDecorators = {
     'schemeType': [{ type: Input },],
     'legendPosition': [{ type: Input },],
     'tooltipDisabled': [{ type: Input },],
+    'xAxisMinScale': [{ type: Input },],
+    'yAxisMinScale': [{ type: Input },],
     'activate': [{ type: Output },],
     'deactivate': [{ type: Output },],
     'tooltipTemplate': [{ type: ContentChild, args: ['tooltipTemplate',] },],

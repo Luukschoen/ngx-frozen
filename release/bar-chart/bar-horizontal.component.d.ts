@@ -21,6 +21,7 @@ export declare class BarHorizontalComponent extends BaseChartComponent {
     barPadding: number;
     roundDomains: boolean;
     roundEdges: boolean;
+    xAxisMinScale: number;
     activate: EventEmitter<any>;
     deactivate: EventEmitter<any>;
     tooltipTemplate: TemplateRef<any>;

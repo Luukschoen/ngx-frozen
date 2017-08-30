@@ -21,6 +21,8 @@ export declare class BubbleChartComponent extends BaseChartComponent {
     schemeType: string;
     legendPosition: string;
     tooltipDisabled: boolean;
+    xAxisMinScale: any;
+    yAxisMinScale: any;
     activate: EventEmitter<any>;
     deactivate: EventEmitter<any>;
     tooltipTemplate: TemplateRef<any>;

@@ -24,6 +24,7 @@ var LineChartComponent = (function (_super) {
         _this.tooltipDisabled = false;
         _this.showRefLines = false;
         _this.showRefLabels = true;
+        _this.yAxisMinScale = 0;
         _this.activate = new EventEmitter();
         _this.deactivate = new EventEmitter();
         _this.margin = [10, 20, 10, 20];
@@ -93,7 +94,8 @@ var LineChartComponent = (function (_super) {
         var domain = [];
         if (this.scaleType === 'time') {
             var min = Math.min.apply(Math, values);
-            var max = Math.max.apply(Math, values);
+            var max = this.xAxisMinScale
+                ? Math.max.apply(Math, [this.xAxisMinScale].concat(values)) : Math.max.apply(Math, values);
             domain = [new Date(min), new Date(max)];
             this.xSet = values.slice().sort(function (a, b) {
                 var aDate = a.getTime();
@@ -108,7 +110,8 @@ var LineChartComponent = (function (_super) {
         else if (this.scaleType === 'linear') {
             values = values.map(function (v) { return Number(v); });
             var min = Math.min.apply(Math, values);
-            var max = Math.max.apply(Math, values);
+            var max = this.xAxisMinScale
+                ? Math.max.apply(Math, [this.xAxisMinScale].concat(values)) : Math.max.apply(Math, values);
             domain = [min, max];
             this.xSet = values.slice().sort();
         }
@@ -142,7 +145,7 @@ var LineChartComponent = (function (_super) {
             }
         }
         var min = Math.min.apply(Math, domain);
-        var max = Math.max.apply(Math, domain);
+        var max = Math.max.apply(Math, [this.yAxisMinScale].concat(domain));
         if (!this.autoScale) {
             min = Math.min(0, min);
         }
@@ -341,6 +344,8 @@ LineChartComponent.propDecorators = {
     'showRefLines': [{ type: Input },],
     'referenceLines': [{ type: Input },],
     'showRefLabels': [{ type: Input },],
+    'xAxisMinScale': [{ type: Input },],
+    'yAxisMinScale': [{ type: Input },],
     'activate': [{ type: Output },],
     'deactivate': [{ type: Output },],
     'tooltipTemplate': [{ type: ContentChild, args: ['tooltipTemplate',] },],

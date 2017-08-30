@@ -1,5 +1,5 @@
 /**
- * ngx-charts v"6.0.2" (https://github.com/swimlane/ngx-charts)
+ * ngx-charts v"6.0.2-custom" (https://github.com/swimlane/ngx-charts)
  * Copyright 2016
  * Licensed under MIT
  */
@@ -2946,6 +2946,7 @@ var AreaChartStackedComponent = (function (_super) {
         _this.activeEntries = [];
         _this.roundDomains = false;
         _this.tooltipDisabled = false;
+        _this.yAxisMinScale = 0;
         _this.activate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.deactivate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.margin = [10, 20, 10, 20];
@@ -3050,7 +3051,8 @@ var AreaChartStackedComponent = (function (_super) {
         var domain = [];
         if (this.scaleType === 'time') {
             var min = Math.min.apply(Math, values);
-            var max = Math.max.apply(Math, values);
+            var max = this.xAxisMinScale
+                ? Math.max.apply(Math, [this.xAxisMinScale].concat(values)) : Math.max.apply(Math, values);
             domain = [new Date(min), new Date(max)];
             this.xSet = values.slice().sort(function (a, b) {
                 var aDate = a.getTime();
@@ -3065,7 +3067,8 @@ var AreaChartStackedComponent = (function (_super) {
         else if (this.scaleType === 'linear') {
             values = values.map(function (v) { return Number(v); });
             var min = Math.min.apply(Math, values);
-            var max = Math.max.apply(Math, values);
+            var max = this.xAxisMinScale
+                ? Math.max.apply(Math, [this.xAxisMinScale].concat(values)) : Math.max.apply(Math, values);
             domain = [min, max];
             this.xSet = values.slice().sort();
         }
@@ -3103,7 +3106,7 @@ var AreaChartStackedComponent = (function (_super) {
             _loop_2(i);
         }
         var min = Math.min.apply(Math, [0].concat(domain));
-        var max = Math.max.apply(Math, domain);
+        var max = Math.max.apply(Math, [this.yAxisMinScale].concat(domain));
         return [min, max];
     };
     AreaChartStackedComponent.prototype.getSeriesDomain = function () {
@@ -3319,6 +3322,14 @@ __decorate([
     __metadata("design:type", Boolean)
 ], AreaChartStackedComponent.prototype, "tooltipDisabled", void 0);
 __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], AreaChartStackedComponent.prototype, "xAxisMinScale", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Number)
+], AreaChartStackedComponent.prototype, "yAxisMinScale", void 0);
+__decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
     __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
 ], AreaChartStackedComponent.prototype, "activate", void 0);
@@ -3403,6 +3414,7 @@ var AreaChartComponent = (function (_super) {
         _this.activeEntries = [];
         _this.roundDomains = false;
         _this.tooltipDisabled = false;
+        _this.yAxisMinScale = 0;
         _this.activate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.deactivate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.margin = [10, 20, 10, 20];
@@ -3472,7 +3484,8 @@ var AreaChartComponent = (function (_super) {
         var domain = [];
         if (this.scaleType === 'time') {
             var min = Math.min.apply(Math, values);
-            var max = Math.max.apply(Math, values);
+            var max = this.xAxisMinScale
+                ? Math.max.apply(Math, [this.xAxisMinScale].concat(values)) : Math.max.apply(Math, values);
             domain = [new Date(min), new Date(max)];
             this.xSet = values.slice().sort(function (a, b) {
                 var aDate = a.getTime();
@@ -3487,7 +3500,8 @@ var AreaChartComponent = (function (_super) {
         else if (this.scaleType === 'linear') {
             values = values.map(function (v) { return Number(v); });
             var min = Math.min.apply(Math, values);
-            var max = Math.max.apply(Math, values);
+            var max = this.xAxisMinScale
+                ? Math.max.apply(Math, [this.xAxisMinScale].concat(values)) : Math.max.apply(Math, values);
             domain = [min, max];
             this.xSet = values.slice().sort();
         }
@@ -3509,7 +3523,7 @@ var AreaChartComponent = (function (_super) {
             }
         }
         var min = Math.min.apply(Math, domain);
-        var max = Math.max.apply(Math, domain);
+        var max = Math.max.apply(Math, [this.yAxisMinScale].concat(domain));
         if (!this.autoScale) {
             min = Math.min(0, min);
         }
@@ -3734,6 +3748,14 @@ __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Boolean)
 ], AreaChartComponent.prototype, "tooltipDisabled", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], AreaChartComponent.prototype, "xAxisMinScale", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Number)
+], AreaChartComponent.prototype, "yAxisMinScale", void 0);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
     __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
@@ -4162,6 +4184,7 @@ var BarHorizontal2DComponent = (function (_super) {
         _this.barPadding = 8;
         _this.roundDomains = false;
         _this.roundEdges = true;
+        _this.xAxisMinScale = 0;
         _this.activate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.deactivate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.margin = [10, 20, 10, 20];
@@ -4252,7 +4275,7 @@ var BarHorizontal2DComponent = (function (_super) {
             }
         }
         var min = Math.min.apply(Math, [0].concat(domain));
-        var max = Math.max.apply(Math, domain);
+        var max = Math.max.apply(Math, [this.xAxisMinScale].concat(domain));
         return [min, max];
     };
     BarHorizontal2DComponent.prototype.groupTransform = function (group) {
@@ -4409,6 +4432,10 @@ __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Boolean)
 ], BarHorizontal2DComponent.prototype, "roundEdges", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Number)
+], BarHorizontal2DComponent.prototype, "xAxisMinScale", void 0);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
     __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
@@ -4790,6 +4817,7 @@ var BarHorizontalStackedComponent = (function (_super) {
         _this.activeEntries = [];
         _this.barPadding = 8;
         _this.roundDomains = false;
+        _this.xAxisMinScale = 0;
         _this.activate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.deactivate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.margin = [10, 20, 10, 20];
@@ -4857,7 +4885,7 @@ var BarHorizontalStackedComponent = (function (_super) {
             domain.push(sum);
         }
         var min = Math.min.apply(Math, [0].concat(domain));
-        var max = Math.max.apply(Math, domain);
+        var max = Math.max.apply(Math, [this.xAxisMinScale].concat(domain));
         return [min, max];
     };
     BarHorizontalStackedComponent.prototype.getYScale = function () {
@@ -5020,6 +5048,10 @@ __decorate([
     __metadata("design:type", Boolean)
 ], BarHorizontalStackedComponent.prototype, "roundDomains", void 0);
 __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Number)
+], BarHorizontalStackedComponent.prototype, "xAxisMinScale", void 0);
+__decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
     __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
 ], BarHorizontalStackedComponent.prototype, "activate", void 0);
@@ -5099,6 +5131,7 @@ var BarHorizontalComponent = (function (_super) {
         _this.barPadding = 8;
         _this.roundDomains = false;
         _this.roundEdges = true;
+        _this.xAxisMinScale = 0;
         _this.activate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.deactivate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.margin = [10, 20, 10, 20];
@@ -5145,7 +5178,7 @@ var BarHorizontalComponent = (function (_super) {
     BarHorizontalComponent.prototype.getXDomain = function () {
         var values = this.results.map(function (d) { return d.value; });
         var min = Math.min.apply(Math, [0].concat(values));
-        var max = Math.max.apply(Math, values);
+        var max = Math.max.apply(Math, [this.xAxisMinScale].concat(values));
         return [min, max];
     };
     BarHorizontalComponent.prototype.getYDomain = function () {
@@ -5285,6 +5318,10 @@ __decorate([
     __metadata("design:type", Boolean)
 ], BarHorizontalComponent.prototype, "roundEdges", void 0);
 __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Number)
+], BarHorizontalComponent.prototype, "xAxisMinScale", void 0);
+__decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
     __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
 ], BarHorizontalComponent.prototype, "activate", void 0);
@@ -5358,6 +5395,7 @@ var BarVertical2DComponent = (function (_super) {
         _this.barPadding = 8;
         _this.roundDomains = false;
         _this.roundEdges = true;
+        _this.yAxisMinScale = 0;
         _this.activate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.deactivate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.margin = [10, 20, 10, 20];
@@ -5448,7 +5486,7 @@ var BarVertical2DComponent = (function (_super) {
             }
         }
         var min = Math.min.apply(Math, [0].concat(domain));
-        var max = Math.max.apply(Math, domain);
+        var max = Math.max.apply(Math, [this.yAxisMinScale].concat(domain));
         return [min, max];
     };
     BarVertical2DComponent.prototype.groupTransform = function (group) {
@@ -5609,6 +5647,10 @@ __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Boolean)
 ], BarVertical2DComponent.prototype, "roundEdges", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Number)
+], BarVertical2DComponent.prototype, "yAxisMinScale", void 0);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
     __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
@@ -5990,6 +6032,7 @@ var BarVerticalStackedComponent = (function (_super) {
         _this.activeEntries = [];
         _this.barPadding = 8;
         _this.roundDomains = false;
+        _this.yAxisMinScale = 0;
         _this.activate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.deactivate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.margin = [10, 20, 10, 20];
@@ -6057,7 +6100,7 @@ var BarVerticalStackedComponent = (function (_super) {
             domain.push(sum);
         }
         var min = Math.min.apply(Math, [0].concat(domain));
-        var max = Math.max.apply(Math, domain);
+        var max = Math.max.apply(Math, [this.yAxisMinScale].concat(domain));
         return [min, max];
     };
     BarVerticalStackedComponent.prototype.getXScale = function () {
@@ -6220,6 +6263,10 @@ __decorate([
     __metadata("design:type", Boolean)
 ], BarVerticalStackedComponent.prototype, "roundDomains", void 0);
 __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Number)
+], BarVerticalStackedComponent.prototype, "yAxisMinScale", void 0);
+__decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
     __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
 ], BarVerticalStackedComponent.prototype, "activate", void 0);
@@ -6299,6 +6346,7 @@ var BarVerticalComponent = (function (_super) {
         _this.barPadding = 8;
         _this.roundDomains = false;
         _this.roundEdges = true;
+        _this.yAxisMinScale = 0;
         _this.activate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.deactivate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.margin = [10, 20, 10, 20];
@@ -6348,7 +6396,7 @@ var BarVerticalComponent = (function (_super) {
     BarVerticalComponent.prototype.getYDomain = function () {
         var values = this.results.map(function (d) { return d.value; });
         var min = Math.min.apply(Math, [0].concat(values));
-        var max = Math.max.apply(Math, values);
+        var max = Math.max.apply(Math, [this.yAxisMinScale].concat(values));
         return [min, max];
     };
     BarVerticalComponent.prototype.onClick = function (data) {
@@ -6484,6 +6532,10 @@ __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Boolean)
 ], BarVerticalComponent.prototype, "roundEdges", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Number)
+], BarVerticalComponent.prototype, "yAxisMinScale", void 0);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
     __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
@@ -7445,7 +7497,7 @@ var BubbleChartComponent = (function (_super) {
             }
         }
         this.xScaleType = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__bubble_chart_utils__["b" /* getScaleType */])(values);
-        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__bubble_chart_utils__["c" /* getDomain */])(values, this.xScaleType, this.autoScale);
+        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__bubble_chart_utils__["c" /* getDomain */])(values, this.xScaleType, this.autoScale, this.xAxisMinScale);
     };
     BubbleChartComponent.prototype.getYDomain = function () {
         var values = [];
@@ -7459,7 +7511,7 @@ var BubbleChartComponent = (function (_super) {
             }
         }
         this.yScaleType = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__bubble_chart_utils__["b" /* getScaleType */])(values);
-        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__bubble_chart_utils__["c" /* getDomain */])(values, this.yScaleType, this.autoScale);
+        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__bubble_chart_utils__["c" /* getDomain */])(values, this.yScaleType, this.autoScale, this.yAxisMinScale);
     };
     BubbleChartComponent.prototype.getRDomain = function () {
         var min = Infinity;
@@ -7589,6 +7641,14 @@ __decorate([
     __metadata("design:type", Boolean)
 ], BubbleChartComponent.prototype, "tooltipDisabled", void 0);
 __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], BubbleChartComponent.prototype, "xAxisMinScale", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], BubbleChartComponent.prototype, "yAxisMinScale", void 0);
+__decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
     __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
 ], BubbleChartComponent.prototype, "activate", void 0);
@@ -7712,20 +7772,22 @@ function isDate(value) {
     }
     return false;
 }
-function getDomain(values, scaleType, autoScale) {
+function getDomain(values, scaleType, autoScale, minScale) {
     var domain = [];
     if (scaleType === 'time') {
         var min = Math.min.apply(Math, values);
-        var max = Math.max.apply(Math, values);
+        var max = minScale
+            ? Math.max.apply(Math, [minScale].concat(values)) : Math.max.apply(Math, values);
         domain = [min, max];
     }
     else if (scaleType === 'linear') {
         values = values.map(function (v) { return Number(v); });
         var min = Math.min.apply(Math, values);
-        var max = Math.max.apply(Math, values);
         if (!autoScale) {
             min = Math.min(0, min);
         }
+        var max = minScale
+            ? Math.max.apply(Math, [minScale].concat(values)) : Math.max.apply(Math, values);
         domain = [min, max];
     }
     else {
@@ -12453,7 +12515,7 @@ __decorate([
 TooltipContentComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'ngx-tooltip-content',
-        template: "\n    <div>\n      <span\n        #caretElm\n        [hidden]=\"!showCaret\"\n        class=\"tooltip-caret position-{{this.placement}}\">\n      </span>\n      <div class=\"tooltip-content\">\n        <span *ngIf=\"!title\">\n          <ng-template\n            [ngTemplateOutlet]=\"template\"\n            [ngOutletContext]=\"{ model: context }\">\n          </ng-template>\n        </span>\n        <span\n          *ngIf=\"title\"\n          [innerHTML]=\"title\">\n        </span>\n      </div>\n    </div>\n  ",
+        template: "\n    <div>\n      <span\n        #caretElm\n        [hidden]=\"!showCaret\"\n        class=\"tooltip-caret position-{{this.placement}}\">\n      </span>\n      <div class=\"tooltip-content\">\n        <span *ngIf=\"!title\">\n          <ng-template\n            [ngTemplateOutlet]=\"template\"\n            [ngTemplateOutletContext]=\"{ model: context }\">\n          </ng-template>\n        </span>\n        <span\n          *ngIf=\"title\"\n          [innerHTML]=\"title\">\n        </span>\n      </div>\n    </div>\n  ",
         encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None,
         styles: [__webpack_require__("./src/common/tooltip/tooltip.component.scss")]
     }),
@@ -13167,7 +13229,7 @@ __decorate([
 ForceDirectedGraphComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'ngx-charts-force-directed-graph',
-        template: "\n    <ngx-charts-chart\n      [view]=\"[width, height]\"\n      [showLegend]=\"legend\"\n      [legendOptions]=\"legendOptions\"\n      (legendLabelClick)=\"onClick($event)\"\n      (legendLabelActivate)=\"onActivate($event)\"\n      (legendLabelDeactivate)=\"onDeactivate($event)\">\n      <svg:g [attr.transform]=\"transform\" class=\"force-directed-graph chart\">\n        <svg:g class=\"links\">\n          <svg:g *ngFor=\"let link of links; trackBy:trackLinkBy\">\n            <ng-template *ngIf=\"linkTemplate\"\n              [ngTemplateOutlet]=\"linkTemplate\"\n              [ngOutletContext]=\"{ $implicit: link }\">\n            </ng-template>\n            <svg:line *ngIf=\"!linkTemplate\"\n              strokeWidth=\"1\" class=\"edge\"\n              [attr.x1]=\"link.source.x\"\n              [attr.y1]=\"link.source.y\"\n              [attr.x2]=\"link.target.x\"\n              [attr.y2]=\"link.target.y\"\n            />\n          </svg:g>\n        </svg:g>\n        <svg:g class=\"nodes\">\n          <svg:g *ngFor=\"let node of nodes; trackBy:trackNodeBy\"\n            [attr.transform]=\"'translate(' + node.x + ',' + node.y + ')'\"\n            [attr.fill]=\"colors.getColor(groupResultsBy(node))\"\n            [attr.stroke]=\"colors.getColor(groupResultsBy(node))\"\n            (mousedown)=\"onDragStart(node, $event)\"\n            (click)=\"onClick({name: node.value})\"\n            ngx-tooltip\n            [tooltipDisabled]=\"tooltipDisabled\"\n            [tooltipPlacement]=\"'top'\"\n            [tooltipType]=\"'tooltip'\"\n            [tooltipTitle]=\"tooltipTemplate ? undefined : node.value\"\n            [tooltipTemplate]=\"tooltipTemplate\"\n            [tooltipContext]=\"node\">\n            <ng-template *ngIf=\"nodeTemplate\"\n              [ngTemplateOutlet]=\"nodeTemplate\"\n              [ngOutletContext]=\"{ $implicit: node }\">\n            </ng-template>\n            <svg:circle *ngIf=\"!nodeTemplate\" r=\"5\" />\n          </svg:g>\n        </svg:g>\n      </svg:g>\n    </ngx-charts-chart>\n  ",
+        template: "\n    <ngx-charts-chart\n      [view]=\"[width, height]\"\n      [showLegend]=\"legend\"\n      [legendOptions]=\"legendOptions\"\n      (legendLabelClick)=\"onClick($event)\"\n      (legendLabelActivate)=\"onActivate($event)\"\n      (legendLabelDeactivate)=\"onDeactivate($event)\">\n      <svg:g [attr.transform]=\"transform\" class=\"force-directed-graph chart\">\n        <svg:g class=\"links\">\n          <svg:g *ngFor=\"let link of links; trackBy:trackLinkBy\">\n            <ng-template *ngIf=\"linkTemplate\"\n              [ngTemplateOutlet]=\"linkTemplate\"\n              [ngTemplateOutletContext]=\"{ $implicit: link }\">\n            </ng-template>\n            <svg:line *ngIf=\"!linkTemplate\"\n              strokeWidth=\"1\" class=\"edge\"\n              [attr.x1]=\"link.source.x\"\n              [attr.y1]=\"link.source.y\"\n              [attr.x2]=\"link.target.x\"\n              [attr.y2]=\"link.target.y\"\n            />\n          </svg:g>\n        </svg:g>\n        <svg:g class=\"nodes\">\n          <svg:g *ngFor=\"let node of nodes; trackBy:trackNodeBy\"\n            [attr.transform]=\"'translate(' + node.x + ',' + node.y + ')'\"\n            [attr.fill]=\"colors.getColor(groupResultsBy(node))\"\n            [attr.stroke]=\"colors.getColor(groupResultsBy(node))\"\n            (mousedown)=\"onDragStart(node, $event)\"\n            (click)=\"onClick({name: node.value})\"\n            ngx-tooltip\n            [tooltipDisabled]=\"tooltipDisabled\"\n            [tooltipPlacement]=\"'top'\"\n            [tooltipType]=\"'tooltip'\"\n            [tooltipTitle]=\"tooltipTemplate ? undefined : node.value\"\n            [tooltipTemplate]=\"tooltipTemplate\"\n            [tooltipContext]=\"node\">\n            <ng-template *ngIf=\"nodeTemplate\"\n              [ngTemplateOutlet]=\"nodeTemplate\"\n              [ngTemplateOutletContext]=\"{ $implicit: node }\">\n            </ng-template>\n            <svg:circle *ngIf=\"!nodeTemplate\" r=\"5\" />\n          </svg:g>\n        </svg:g>\n      </svg:g>\n    </ngx-charts-chart>\n  ",
         styles: [
             __webpack_require__("./src/common/base-chart.component.scss"),
             __webpack_require__("./src/force-directed-graph/force-directed-graph.component.scss")
@@ -14929,6 +14991,7 @@ var LineChartComponent = (function (_super) {
         _this.tooltipDisabled = false;
         _this.showRefLines = false;
         _this.showRefLabels = true;
+        _this.yAxisMinScale = 0;
         _this.activate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.deactivate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.margin = [10, 20, 10, 20];
@@ -14998,7 +15061,8 @@ var LineChartComponent = (function (_super) {
         var domain = [];
         if (this.scaleType === 'time') {
             var min = Math.min.apply(Math, values);
-            var max = Math.max.apply(Math, values);
+            var max = this.xAxisMinScale
+                ? Math.max.apply(Math, [this.xAxisMinScale].concat(values)) : Math.max.apply(Math, values);
             domain = [new Date(min), new Date(max)];
             this.xSet = values.slice().sort(function (a, b) {
                 var aDate = a.getTime();
@@ -15013,7 +15077,8 @@ var LineChartComponent = (function (_super) {
         else if (this.scaleType === 'linear') {
             values = values.map(function (v) { return Number(v); });
             var min = Math.min.apply(Math, values);
-            var max = Math.max.apply(Math, values);
+            var max = this.xAxisMinScale
+                ? Math.max.apply(Math, [this.xAxisMinScale].concat(values)) : Math.max.apply(Math, values);
             domain = [min, max];
             this.xSet = values.slice().sort();
         }
@@ -15047,7 +15112,7 @@ var LineChartComponent = (function (_super) {
             }
         }
         var min = Math.min.apply(Math, domain);
-        var max = Math.max.apply(Math, domain);
+        var max = Math.max.apply(Math, [this.yAxisMinScale].concat(domain));
         if (!this.autoScale) {
             min = Math.min(0, min);
         }
@@ -15290,6 +15355,14 @@ __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Boolean)
 ], LineChartComponent.prototype, "showRefLabels", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], LineChartComponent.prototype, "xAxisMinScale", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Number)
+], LineChartComponent.prototype, "yAxisMinScale", void 0);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
     __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
