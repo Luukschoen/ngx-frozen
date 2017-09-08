@@ -349,6 +349,16 @@ const chartGroups = [
         ]
       },
       {
+        name: 'Vertical Bar Chart with Reference Lines',
+        selector: 'vertical-barchart-reference-lines',
+        inputFormat: 'singleSeries',
+        options: [
+          'colorScheme', 'schemeType', 'showXAxis', 'showYAxis', 'gradient', 'barPadding',
+          'showLegend', 'legendTitle', 'showXAxisLabel', 'xAxisLabel', 'showYAxisLabel', 'yAxisLabel',
+          'showGridLines', 'roundDomains', 'tooltipDisabled', 'roundEdges', 'showRefLines',
+          'referenceLines', 'showRefLabels'
+        ],      
+      {
         name: 'Line Chart with Reference Lines',
         selector: 'line-reference-lines',
         inputFormat: 'multiSeries',

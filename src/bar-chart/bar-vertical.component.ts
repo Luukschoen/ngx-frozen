@@ -60,6 +60,15 @@ import { BaseChartComponent } from '../common/base-chart.component';
           (deactivate)="onDeactivate($event)"
           (select)="onClick($event)">
         </svg:g>
+        <svg:g ngx-charts-y-axis
+          *ngIf="yAxis && referenceLines"
+          [yScale]="yScale"
+          [dims]="dims"
+          [referenceLines]="referenceLines"
+          [showRefLines]="showRefLines"
+          [showRefLabels]="showRefLabels"
+          (dimensionsChanged)="updateYAxisWidth($event)">
+        </svg:g>
       </svg:g>
     </ngx-charts-chart>
   `,
@@ -88,6 +97,9 @@ export class BarVerticalComponent extends BaseChartComponent {
   @Input() roundDomains: boolean = false;
   @Input() roundEdges: boolean = true;
   @Input() yAxisMinScale: number = 0;
+  @Input() showRefLines: boolean = false;
+  @Input() referenceLines: any;
+  @Input() showRefLabels: boolean = true;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
