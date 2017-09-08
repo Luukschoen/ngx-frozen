@@ -357,7 +357,8 @@ const chartGroups = [
           'showLegend', 'legendTitle', 'showXAxisLabel', 'xAxisLabel', 'showYAxisLabel', 'yAxisLabel',
           'showGridLines', 'roundDomains', 'tooltipDisabled', 'roundEdges', 'showRefLines',
           'referenceLines', 'showRefLabels'
-        ],      
+        ],
+      },     
       {
         name: 'Line Chart with Reference Lines',
         selector: 'line-reference-lines',
