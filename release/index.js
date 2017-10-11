@@ -7186,7 +7186,7 @@ var SeriesVerticalComponent = (function () {
                 y: 0
             };
             if (_this.type === 'standard') {
-                bar.height = Math.abs(_this.yScale(0) - _this.yScale(value) - 240);
+                bar.height = Math.abs(_this.yScale(0) - _this.yScale(value));
                 bar.x = _this.xScale(label);
                 if (value < 0) {
                     bar.y = _this.yScale(0);
