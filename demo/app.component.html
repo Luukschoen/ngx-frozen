@@ -707,6 +707,7 @@
               [gradient]="gradient"
               [xAxis]="showXAxis"
               [yAxis]="showYAxis"
+              [autoScale]="autoScale"
               [legend]="showLegend"
               [legendTitle]="legendTitle"
               [showXAxisLabel]="showXAxisLabel"
@@ -722,7 +723,7 @@
               [referenceLines]="refLines"
               (select)="select($event)"
               (legendLabelClick)="onLegendLabelClick($event)">
-            </ngx-charts-bar-vertical>      
+            </ngx-charts-bar-vertical>
       <ngx-charts-sparkline
         *ngIf="chartType === 'sparkline'"
         [view]="[100,50]"

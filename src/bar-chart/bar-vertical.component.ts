@@ -86,6 +86,7 @@ export class BarVerticalComponent extends BaseChartComponent {
   @Input() showYAxisLabel;
   @Input() xAxisLabel;
   @Input() yAxisLabel;
+  @Input() autoScale;
   @Input() tooltipDisabled: boolean = false;
   @Input() gradient: boolean;
   @Input() showGridLines: boolean = true;
@@ -165,12 +166,21 @@ export class BarVerticalComponent extends BaseChartComponent {
     return this.results.map(d => d.name);
   }
 
-  getYDomain() {
+  getYDomain(): any[] {
     const values = this.results.map(d => d.value);
-    const min = Math.min(0, ...values);
+
+    const calcMin = Math.min(...values);
+    let min = calcMin * 0.9; // minimum becomes 90% of calculated minimum when autoscale is on.
     const max = Math.max(this.yAxisMinScale, ...values);
+
+
+    if (!this.autoScale) {
+      min = Math.min(0, min);
+    }
+
     return [min, max];
   }
+
 
   onClick(data) {
     this.select.emit(data);

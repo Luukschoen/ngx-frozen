@@ -6397,8 +6397,12 @@ var BarVerticalComponent = (function (_super) {
     };
     BarVerticalComponent.prototype.getYDomain = function () {
         var values = this.results.map(function (d) { return d.value; });
-        var min = Math.min.apply(Math, [0].concat(values));
+        var calcMin = Math.min.apply(Math, values);
+        var min = calcMin * 0.9; // minimum becomes 90% of calculated minimum when autoscale is on.
         var max = Math.max.apply(Math, [this.yAxisMinScale].concat(values));
+        if (!this.autoScale) {
+            min = Math.min(0, min);
+        }
         return [min, max];
     };
     BarVerticalComponent.prototype.onClick = function (data) {
@@ -6494,6 +6498,10 @@ __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Object)
 ], BarVerticalComponent.prototype, "yAxisLabel", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], BarVerticalComponent.prototype, "autoScale", void 0);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Boolean)
@@ -7178,13 +7186,13 @@ var SeriesVerticalComponent = (function () {
                 y: 0
             };
             if (_this.type === 'standard') {
-                bar.height = Math.abs(_this.yScale(value) - _this.yScale(0));
+                bar.height = Math.abs(_this.yScale(0) - _this.yScale(value) - 240);
                 bar.x = _this.xScale(label);
                 if (value < 0) {
                     bar.y = _this.yScale(0);
                 }
                 else {
-                    bar.y = _this.yScale(value);
+                    bar.y = _this.yScale(value); // offset from top
                 }
             }
             else if (_this.type === 'stacked') {

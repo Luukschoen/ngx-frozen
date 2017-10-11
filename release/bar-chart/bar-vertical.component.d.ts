@@ -11,6 +11,7 @@ export declare class BarVerticalComponent extends BaseChartComponent {
     showYAxisLabel: any;
     xAxisLabel: any;
     yAxisLabel: any;
+    autoScale: any;
     tooltipDisabled: boolean;
     gradient: boolean;
     showGridLines: boolean;
@@ -43,7 +44,7 @@ export declare class BarVerticalComponent extends BaseChartComponent {
     getXScale(): any;
     getYScale(): any;
     getXDomain(): any[];
-    getYDomain(): number[];
+    getYDomain(): any[];
     onClick(data: any): void;
     setColors(): void;
     getLegendOptions(): {

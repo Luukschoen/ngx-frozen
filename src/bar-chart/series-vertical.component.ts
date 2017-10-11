@@ -78,7 +78,7 @@ export class SeriesVerticalComponent implements OnChanges {
 
   tooltipPlacement: string;
   tooltipType: string;
-  
+
   bars: any;
   x: any;
   y: any;
@@ -119,14 +119,17 @@ export class SeriesVerticalComponent implements OnChanges {
       };
 
       if (this.type === 'standard') {
-        bar.height = Math.abs(this.yScale(value) - this.yScale(0));
+
+        bar.height = Math.abs( this.yScale(0) - this.yScale(value) - 240 );
+
         bar.x = this.xScale(label);
 
         if (value < 0) {
           bar.y = this.yScale(0);
         } else {
-          bar.y = this.yScale(value);
+          bar.y = this.yScale(value); // offset from top
         }
+
       } else if (this.type === 'stacked') {
         const offset0 = d0;
         const offset1 = offset0 + value;

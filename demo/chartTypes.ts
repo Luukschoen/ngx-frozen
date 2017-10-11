@@ -354,11 +354,11 @@ const chartGroups = [
         inputFormat: 'singleSeries',
         options: [
           'colorScheme', 'schemeType', 'showXAxis', 'showYAxis', 'gradient', 'barPadding',
-          'showLegend', 'legendTitle', 'showXAxisLabel', 'xAxisLabel', 'showYAxisLabel', 'yAxisLabel',
+          'showLegend', 'legendTitle', 'showXAxisLabel', 'xAxisLabel', 'showYAxisLabel', 'yAxisLabel', 'autoScale',
           'showGridLines', 'roundDomains', 'tooltipDisabled', 'roundEdges', 'showRefLines',
           'referenceLines', 'showRefLabels'
         ],
-      },     
+      },
       {
         name: 'Line Chart with Reference Lines',
         selector: 'line-reference-lines',

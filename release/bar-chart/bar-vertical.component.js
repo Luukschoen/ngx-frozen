@@ -71,8 +71,12 @@ var BarVerticalComponent = (function (_super) {
     };
     BarVerticalComponent.prototype.getYDomain = function () {
         var values = this.results.map(function (d) { return d.value; });
-        var min = Math.min.apply(Math, [0].concat(values));
+        var calcMin = Math.min.apply(Math, values);
+        var min = calcMin * 0.9; // minimum becomes 90% of calculated minimum when autoscale is on.
         var max = Math.max.apply(Math, [this.yAxisMinScale].concat(values));
+        if (!this.autoScale) {
+            min = Math.min(0, min);
+        }
         return [min, max];
     };
     BarVerticalComponent.prototype.onClick = function (data) {
@@ -157,6 +161,7 @@ BarVerticalComponent.propDecorators = {
     'showYAxisLabel': [{ type: Input },],
     'xAxisLabel': [{ type: Input },],
     'yAxisLabel': [{ type: Input },],
+    'autoScale': [{ type: Input },],
     'tooltipDisabled': [{ type: Input },],
     'gradient': [{ type: Input },],
     'showGridLines': [{ type: Input },],
