@@ -6343,10 +6343,10 @@ var BarVerticalComponent = (function (_super) {
         _this.tooltipDisabled = false;
         _this.showGridLines = true;
         _this.activeEntries = [];
+        _this.yAxisMinScale = 0;
         _this.barPadding = 8;
         _this.roundDomains = false;
         _this.roundEdges = true;
-        _this.yAxisMinScale = 0;
         _this.showRefLines = false;
         _this.showRefLabels = true;
         _this.activate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
@@ -6397,12 +6397,8 @@ var BarVerticalComponent = (function (_super) {
     };
     BarVerticalComponent.prototype.getYDomain = function () {
         var values = this.results.map(function (d) { return d.value; });
-        var calcMin = Math.min.apply(Math, values);
-        var min = calcMin * 0.9; // minimum becomes 90% of calculated minimum when autoscale is on.
+        var min = Math.min.apply(Math, [0].concat(values));
         var max = Math.max.apply(Math, [this.yAxisMinScale].concat(values));
-        if (!this.autoScale) {
-            min = Math.min(0, min);
-        }
         return [min, max];
     };
     BarVerticalComponent.prototype.onClick = function (data) {
@@ -6532,6 +6528,10 @@ __decorate([
 ], BarVerticalComponent.prototype, "yAxisTickFormatting", void 0);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Number)
+], BarVerticalComponent.prototype, "yAxisMinScale", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Object)
 ], BarVerticalComponent.prototype, "barPadding", void 0);
 __decorate([
@@ -6542,10 +6542,6 @@ __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Boolean)
 ], BarVerticalComponent.prototype, "roundEdges", void 0);
-__decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
-    __metadata("design:type", Number)
-], BarVerticalComponent.prototype, "yAxisMinScale", void 0);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Boolean)
@@ -7186,7 +7182,11 @@ var SeriesVerticalComponent = (function () {
                 y: 0
             };
             if (_this.type === 'standard') {
+                //
+                // bar.height = Math.abs( this.yScale(value) );
+                // console.log(bar.height);
                 bar.height = Math.abs(_this.yScale(0) - _this.yScale(value));
+                console.log('height minus', _this.yScale(0), _this.yScale(value), _this.yScale(0) - _this.yScale(value));
                 bar.x = _this.xScale(label);
                 if (value < 0) {
                     bar.y = _this.yScale(0);

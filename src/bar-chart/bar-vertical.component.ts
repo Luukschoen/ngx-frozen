@@ -94,10 +94,11 @@ export class BarVerticalComponent extends BaseChartComponent {
   @Input() schemeType: string;
   @Input() xAxisTickFormatting: any;
   @Input() yAxisTickFormatting: any;
+  @Input() yAxisMinScale: number = 0;
+
   @Input() barPadding = 8;
   @Input() roundDomains: boolean = false;
   @Input() roundEdges: boolean = true;
-  @Input() yAxisMinScale: number = 0;
   @Input() showRefLines: boolean = false;
   @Input() referenceLines: any;
   @Input() showRefLabels: boolean = true;
@@ -168,19 +169,10 @@ export class BarVerticalComponent extends BaseChartComponent {
 
   getYDomain(): any[] {
     const values = this.results.map(d => d.value);
-
-    const calcMin = Math.min(...values);
-    let min = calcMin * 0.9; // minimum becomes 90% of calculated minimum when autoscale is on.
+    const min = Math.min(0, ...values);
     const max = Math.max(this.yAxisMinScale, ...values);
-
-
-    if (!this.autoScale) {
-      min = Math.min(0, min);
-    }
-
     return [min, max];
   }
-
 
   onClick(data) {
     this.select.emit(data);

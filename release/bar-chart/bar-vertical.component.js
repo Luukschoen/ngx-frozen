@@ -17,10 +17,10 @@ var BarVerticalComponent = (function (_super) {
         _this.tooltipDisabled = false;
         _this.showGridLines = true;
         _this.activeEntries = [];
+        _this.yAxisMinScale = 0;
         _this.barPadding = 8;
         _this.roundDomains = false;
         _this.roundEdges = true;
-        _this.yAxisMinScale = 0;
         _this.showRefLines = false;
         _this.showRefLabels = true;
         _this.activate = new EventEmitter();
@@ -71,12 +71,8 @@ var BarVerticalComponent = (function (_super) {
     };
     BarVerticalComponent.prototype.getYDomain = function () {
         var values = this.results.map(function (d) { return d.value; });
-        var calcMin = Math.min.apply(Math, values);
-        var min = calcMin * 0.9; // minimum becomes 90% of calculated minimum when autoscale is on.
+        var min = Math.min.apply(Math, [0].concat(values));
         var max = Math.max.apply(Math, [this.yAxisMinScale].concat(values));
-        if (!this.autoScale) {
-            min = Math.min(0, min);
-        }
         return [min, max];
     };
     BarVerticalComponent.prototype.onClick = function (data) {
@@ -169,10 +165,10 @@ BarVerticalComponent.propDecorators = {
     'schemeType': [{ type: Input },],
     'xAxisTickFormatting': [{ type: Input },],
     'yAxisTickFormatting': [{ type: Input },],
+    'yAxisMinScale': [{ type: Input },],
     'barPadding': [{ type: Input },],
     'roundDomains': [{ type: Input },],
     'roundEdges': [{ type: Input },],
-    'yAxisMinScale': [{ type: Input },],
     'showRefLines': [{ type: Input },],
     'referenceLines': [{ type: Input },],
     'showRefLabels': [{ type: Input },],
