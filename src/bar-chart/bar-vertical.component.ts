@@ -104,6 +104,7 @@ export class BarVerticalComponent extends BaseChartComponent {
   @Input() showRefLines: boolean = false;
   @Input() referenceLines: any;
   @Input() showRefLabels: boolean = true;
+  @Input() yAxisMinScale: number = 0;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
@@ -173,7 +174,7 @@ export class BarVerticalComponent extends BaseChartComponent {
     const values = this.results.map(d => d.value);
     let min = Math.min(...values);
     min = min * 0.9;
-    const max = Math.max(...values);
+    const max = Math.max(this.yAxisMinScale, ...values);
 
     if (!this.autoScale) {
       min = Math.min(0, min);
