@@ -41,17 +41,13 @@ var SeriesVerticalComponent = (function () {
                 y: 0
             };
             if (_this.type === 'standard') {
-                //
-                // bar.height = Math.abs( this.yScale(value) );
-                // console.log(bar.height);
-                bar.height = Math.abs(_this.yScale(0) - _this.yScale(value));
-                console.log('height minus', _this.yScale(0), _this.yScale(value), _this.yScale(0) - _this.yScale(value));
+                bar.height = Math.abs(_this.dims.height - _this.yScale(value));
                 bar.x = _this.xScale(label);
                 if (value < 0) {
                     bar.y = _this.yScale(0);
                 }
                 else {
-                    bar.y = _this.yScale(value); // offset from top
+                    bar.y = _this.yScale(value);
                 }
             }
             else if (_this.type === 'stacked') {
