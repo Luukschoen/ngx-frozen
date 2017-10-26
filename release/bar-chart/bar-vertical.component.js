@@ -22,6 +22,7 @@ var BarVerticalComponent = (function (_super) {
         _this.roundEdges = true;
         _this.showRefLines = false;
         _this.showRefLabels = true;
+        _this.yAxisMinScale = 0;
         _this.activate = new EventEmitter();
         _this.deactivate = new EventEmitter();
         _this.margin = [10, 20, 10, 20];
@@ -72,7 +73,7 @@ var BarVerticalComponent = (function (_super) {
         var values = this.results.map(function (d) { return d.value; });
         var min = Math.min.apply(Math, values);
         min = min * 0.9;
-        var max = Math.max.apply(Math, values);
+        var max = Math.max.apply(Math, [this.yAxisMinScale].concat(values));
         if (!this.autoScale) {
             min = Math.min(0, min);
         }
@@ -174,6 +175,7 @@ BarVerticalComponent.propDecorators = {
     'showRefLines': [{ type: Input },],
     'referenceLines': [{ type: Input },],
     'showRefLabels': [{ type: Input },],
+    'yAxisMinScale': [{ type: Input },],
     'activate': [{ type: Output },],
     'deactivate': [{ type: Output },],
     'tooltipTemplate': [{ type: ContentChild, args: ['tooltipTemplate',] },],
