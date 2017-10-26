@@ -45,6 +45,19 @@ import { BaseChartComponent } from '../common/base-chart.component';
           [tickFormatting]="yAxisTickFormatting"
           (dimensionsChanged)="updateYAxisWidth($event)">
         </svg:g>
+        <svg:g ngx-charts-y-axis
+          *ngIf="yAxis && referenceLines"
+          [yScale]="yScale"
+          [dims]="dims"
+          [showGridLines]="showGridLines"
+          [showLabel]="showYAxisLabel"
+          [labelText]="yAxisLabel"
+          [referenceLines]="referenceLines"
+          [showRefLines]="showRefLines"
+          [showRefLabels]="showRefLabels"
+          [tickFormatting]="yAxisTickFormatting"
+          (dimensionsChanged)="updateYAxisWidth($event)">
+        </svg:g>
         <svg:g ngx-charts-series-vertical
           [xScale]="xScale"
           [yScale]="yScale"
@@ -59,20 +72,7 @@ import { BaseChartComponent } from '../common/base-chart.component';
           (activate)="onActivate($event)"
           (deactivate)="onDeactivate($event)"
           (select)="onClick($event)">
-        </svg:g>
-        <svg:g ngx-charts-y-axis
-          *ngIf="yAxis && referenceLines"
-          [yScale]="yScale"
-          [dims]="dims"
-          [showGridLines]="showGridLines"
-          [showLabel]="showYAxisLabel"
-          [labelText]="yAxisLabel"
-          [referenceLines]="referenceLines"
-          [showRefLines]="showRefLines"
-          [showRefLabels]="showRefLabels"
-          [tickFormatting]="yAxisTickFormatting"
-          (dimensionsChanged)="updateYAxisWidth($event)">
-        </svg:g>
+        </svg:g>        
       </svg:g>
     </ngx-charts-chart>
   `,
