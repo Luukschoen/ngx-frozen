@@ -119,21 +119,14 @@ export class SeriesVerticalComponent implements OnChanges {
       };
 
       if (this.type === 'standard') {
-        //
-        // bar.height = Math.abs( this.yScale(value) );
-        // console.log(bar.height);
-
-        bar.height = Math.abs( this.yScale(0) - this.yScale(value) );
-        console.log('height minus',this.yScale(0), this.yScale(value), this.yScale(0) - this.yScale(value));
-
+        bar.height = Math.abs(this.dims.height - this.yScale(value));
         bar.x = this.xScale(label);
 
         if (value < 0) {
           bar.y = this.yScale(0);
         } else {
-          bar.y = this.yScale(value); // offset from top
+          bar.y = this.yScale(value);
         }
-
       } else if (this.type === 'stacked') {
         const offset0 = d0;
         const offset1 = offset0 + value;

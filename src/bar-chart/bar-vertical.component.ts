@@ -36,7 +36,7 @@ import { BaseChartComponent } from '../common/base-chart.component';
           (dimensionsChanged)="updateXAxisHeight($event)">
         </svg:g>
         <svg:g ngx-charts-y-axis
-          *ngIf="yAxis"
+          *ngIf="yAxis && !referenceLines"
           [yScale]="yScale"
           [dims]="dims"
           [showGridLines]="showGridLines"
@@ -64,9 +64,13 @@ import { BaseChartComponent } from '../common/base-chart.component';
           *ngIf="yAxis && referenceLines"
           [yScale]="yScale"
           [dims]="dims"
+          [showGridLines]="showGridLines"
+          [showLabel]="showYAxisLabel"
+          [labelText]="yAxisLabel"
           [referenceLines]="referenceLines"
           [showRefLines]="showRefLines"
           [showRefLabels]="showRefLabels"
+          [tickFormatting]="yAxisTickFormatting"
           (dimensionsChanged)="updateYAxisWidth($event)">
         </svg:g>
       </svg:g>
@@ -86,7 +90,7 @@ export class BarVerticalComponent extends BaseChartComponent {
   @Input() showYAxisLabel;
   @Input() xAxisLabel;
   @Input() yAxisLabel;
-  @Input() autoScale;
+  @Input() autoScale: boolean;
   @Input() tooltipDisabled: boolean = false;
   @Input() gradient: boolean;
   @Input() showGridLines: boolean = true;
@@ -94,8 +98,6 @@ export class BarVerticalComponent extends BaseChartComponent {
   @Input() schemeType: string;
   @Input() xAxisTickFormatting: any;
   @Input() yAxisTickFormatting: any;
-  @Input() yAxisMinScale: number = 0;
-
   @Input() barPadding = 8;
   @Input() roundDomains: boolean = false;
   @Input() roundEdges: boolean = true;
@@ -167,10 +169,16 @@ export class BarVerticalComponent extends BaseChartComponent {
     return this.results.map(d => d.name);
   }
 
-  getYDomain(): any[] {
+  getYDomain() {
     const values = this.results.map(d => d.value);
-    const min = Math.min(0, ...values);
-    const max = Math.max(this.yAxisMinScale, ...values);
+    let min = Math.min(...values);
+    min = min * 0.9;
+    const max = Math.max(...values);
+
+    if (!this.autoScale) {
+      min = Math.min(0, min);
+    }
+
     return [min, max];
   }
 
