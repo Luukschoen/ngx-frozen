@@ -168,6 +168,7 @@ export class LineChartComponent extends BaseChartComponent {
   @Input() yAxisLabel;
   @Input() autoScale;
   @Input() timeline;
+  @Input() minimumDeviation: number;
   @Input() gradient: boolean;
   @Input() showGridLines: boolean = true;
   @Input() curve: any = curveLinear;
@@ -307,6 +308,7 @@ export class LineChartComponent extends BaseChartComponent {
       });
     } else if (this.scaleType === 'linear') {
       values = values.map(v => Number(v));
+
       const min = Math.min(...values);
 
       const max = this.xAxisMinScale
@@ -346,11 +348,18 @@ export class LineChartComponent extends BaseChartComponent {
     }
 
     let min = Math.min(...domain);
-    const max = Math.max(this.yAxisMinScale, ...domain);
+
+    if(!!this.minimumDeviation && (min > 0) && this.autoScale) { // minimumDeviation requires autoscaling AND a domain value bigger then 0
+      min = min * (100 - this.minimumDeviation);
+    }
 
     if (!this.autoScale) {
       min = Math.min(0, min);
     }
+
+    const max = this.yAxisMinScale
+      ? Math.max(this.yAxisMinScale, ...domain)
+      : Math.max(...domain);
 
     return [min, max];
   }

@@ -72,7 +72,7 @@ import { BaseChartComponent } from '../common/base-chart.component';
           (activate)="onActivate($event)"
           (deactivate)="onDeactivate($event)"
           (select)="onClick($event)">
-        </svg:g>        
+        </svg:g>
       </svg:g>
     </ngx-charts-chart>
   `,
@@ -90,6 +90,7 @@ export class BarVerticalComponent extends BaseChartComponent {
   @Input() showYAxisLabel;
   @Input() xAxisLabel;
   @Input() yAxisLabel;
+  @Input() minimumDeviation: number;
   @Input() autoScale: boolean;
   @Input() tooltipDisabled: boolean = false;
   @Input() gradient: boolean;
@@ -172,13 +173,20 @@ export class BarVerticalComponent extends BaseChartComponent {
 
   getYDomain() {
     const values = this.results.map(d => d.value);
+
     let min = Math.min(...values);
-    min = min * 0.9;
-    const max = Math.max(this.yAxisMinScale, ...values);
+
+    if(!!this.minimumDeviation && (min > 0) && this.autoScale) { // minimumDeviation requires autoscaling AND a domain value bigger then 0
+      min = min * (100 - this.minimumDeviation);
+    }
 
     if (!this.autoScale) {
       min = Math.min(0, min);
     }
+
+    const max = this.yAxisMinScale
+      ? Math.max(this.yAxisMinScale, ...values)
+      : Math.max(...values);
 
     return [min, max];
   }
