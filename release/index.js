@@ -6399,7 +6399,7 @@ var BarVerticalComponent = (function (_super) {
         var values = this.results.map(function (d) { return d.value; });
         var min = Math.min.apply(Math, values);
         if (!!this.minimumDeviation && (min > 0) && this.autoScale) {
-            min = min * (100 - this.minimumDeviation);
+            min = min * (1 - (this.minimumDeviation / 100));
         }
         if (!this.autoScale) {
             min = Math.min(0, min);
