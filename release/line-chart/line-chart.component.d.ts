@@ -13,6 +13,7 @@ export declare class LineChartComponent extends BaseChartComponent {
     yAxisLabel: any;
     autoScale: any;
     timeline: any;
+    minimumDeviation: number;
     gradient: boolean;
     showGridLines: boolean;
     curve: any;

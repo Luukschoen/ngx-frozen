@@ -145,10 +145,14 @@ var LineChartComponent = (function (_super) {
             }
         }
         var min = Math.min.apply(Math, domain);
-        var max = Math.max.apply(Math, [this.yAxisMinScale].concat(domain));
+        if (!!this.minimumDeviation && (min > 0) && this.autoScale) {
+            min = min * (100 - this.minimumDeviation);
+        }
         if (!this.autoScale) {
             min = Math.min(0, min);
         }
+        var max = this.yAxisMinScale
+            ? Math.max.apply(Math, [this.yAxisMinScale].concat(domain)) : Math.max.apply(Math, domain);
         return [min, max];
     };
     LineChartComponent.prototype.getSeriesDomain = function () {
@@ -331,6 +335,7 @@ LineChartComponent.propDecorators = {
     'yAxisLabel': [{ type: Input },],
     'autoScale': [{ type: Input },],
     'timeline': [{ type: Input },],
+    'minimumDeviation': [{ type: Input },],
     'gradient': [{ type: Input },],
     'showGridLines': [{ type: Input },],
     'curve': [{ type: Input },],
