@@ -15142,7 +15142,7 @@ var LineChartComponent = (function (_super) {
         }
         var min = Math.min.apply(Math, domain);
         if (!!this.minimumDeviation && (min > 0) && this.autoScale) {
-            min = min * (100 - this.minimumDeviation);
+            min = min * (1 - (this.minimumDeviation / 100));
         }
         if (!this.autoScale) {
             min = Math.min(0, min);
