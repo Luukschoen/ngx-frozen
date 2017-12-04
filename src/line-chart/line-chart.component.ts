@@ -349,7 +349,8 @@ export class LineChartComponent extends BaseChartComponent {
 
     let min = Math.min(...domain);
 
-    if(!!this.minimumDeviation && (min > 0) && this.autoScale) { // minimumDeviation requires autoscaling AND a domain value bigger then 0
+    // minimumDeviation requires autoscaling AND a domain value bigger then 0
+    if(!!this.minimumDeviation && (min > 0) && this.autoScale) {
       min = min * (1 - (this.minimumDeviation / 100));
     }
 

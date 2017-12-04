@@ -11624,7 +11624,8 @@ var TooltipArea = (function () {
         return results;
     };
     TooltipArea.prototype.mouseMove = function (event) {
-        var xPos = event.offsetX;
+        var xPos = (event.pageX - event.target.getBoundingClientRect().left) - this.dims.xOffset;
+        // console.log();
         var closestIndex = this.findClosestPointIndex(xPos);
         var closestPoint = this.xSet[closestIndex];
         this.anchorPos = this.xScale(closestPoint);
@@ -15142,6 +15143,7 @@ var LineChartComponent = (function (_super) {
             }
         }
         var min = Math.min.apply(Math, domain);
+        // minimumDeviation requires autoscaling AND a domain value bigger then 0
         if (!!this.minimumDeviation && (min > 0) && this.autoScale) {
             min = min * (1 - (this.minimumDeviation / 100));
         }
