@@ -152,8 +152,7 @@ export class TooltipArea {
   }
 
   mouseMove(event) {
-    const xPos = (event.pageX - event.target.getBoundingClientRect().left) - this.dims.xOffset;
-    // console.log();
+    const xPos = event.pageX - event.target.getBoundingClientRect().left;
     const closestIndex = this.findClosestPointIndex(xPos);
     const closestPoint = this.xSet[closestIndex];
     this.anchorPos = this.xScale(closestPoint);
