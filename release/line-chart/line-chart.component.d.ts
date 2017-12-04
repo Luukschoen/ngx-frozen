@@ -13,7 +13,6 @@ export declare class LineChartComponent extends BaseChartComponent {
     yAxisLabel: any;
     autoScale: any;
     timeline: any;
-    minimumDeviation: number;
     gradient: boolean;
     showGridLines: boolean;
     curve: any;
@@ -27,8 +26,11 @@ export declare class LineChartComponent extends BaseChartComponent {
     showRefLines: boolean;
     referenceLines: any;
     showRefLabels: boolean;
-    xAxisMinScale: any;
-    yAxisMinScale: number;
+    minimumDeviation: number;
+    xScaleMin: any;
+    xScaleMax: any;
+    yScaleMin: number;
+    yScaleMax: number;
     activate: EventEmitter<any>;
     deactivate: EventEmitter<any>;
     tooltipTemplate: TemplateRef<any>;

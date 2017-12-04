@@ -55,7 +55,19 @@ import { id } from '../utils/id';
           [tickFormatting]="xAxisTickFormatting"
           (dimensionsChanged)="updateXAxisHeight($event)">
         </svg:g>
-
+        <svg:g ngx-charts-y-axis
+          *ngIf="yAxis"
+          [yScale]="yScale"
+          [dims]="dims"
+          [showGridLines]="showGridLines"
+          [showLabel]="showYAxisLabel"
+          [labelText]="yAxisLabel"
+          [tickFormatting]="yAxisTickFormatting"
+          [referenceLines]="referenceLines"
+          [showRefLines]="showRefLines"
+          [showRefLabels]="showRefLabels"
+          (dimensionsChanged)="updateYAxisWidth($event)">
+        </svg:g>
         <svg:g [attr.clip-path]="clipPath">
           <svg:g *ngFor="let series of results; trackBy:trackBy" [@animationState]="'active'">
             <svg:g ngx-charts-line-series
@@ -70,7 +82,6 @@ import { id } from '../utils/id';
               [hasRange]="hasRange"
             />
           </svg:g>
-
           <svg:g *ngIf="!tooltipDisabled" (mouseleave)="hideCircles()">
             <svg:g ngx-charts-tooltip-area
               [dims]="dims"
@@ -83,19 +94,6 @@ import { id } from '../utils/id';
               [tooltipTemplate]="seriesTooltipTemplate"
               (hover)="updateHoveredVertical($event)"
             />
-            <svg:g ngx-charts-y-axis
-              *ngIf="yAxis"
-              [yScale]="yScale"
-              [dims]="dims"
-              [showGridLines]="showGridLines"
-              [showLabel]="showYAxisLabel"
-              [labelText]="yAxisLabel"
-              [tickFormatting]="yAxisTickFormatting"
-              [referenceLines]="referenceLines"
-              [showRefLines]="showRefLines"
-              [showRefLabels]="showRefLabels"
-              (dimensionsChanged)="updateYAxisWidth($event)">
-            </svg:g>
             <svg:g *ngFor="let series of results">
               <svg:g ngx-charts-circle-series
                 [xScale]="xScale"
@@ -168,7 +166,6 @@ export class LineChartComponent extends BaseChartComponent {
   @Input() yAxisLabel;
   @Input() autoScale;
   @Input() timeline;
-  @Input() minimumDeviation: number;
   @Input() gradient: boolean;
   @Input() showGridLines: boolean = true;
   @Input() curve: any = curveLinear;
@@ -182,8 +179,11 @@ export class LineChartComponent extends BaseChartComponent {
   @Input() showRefLines: boolean = false;
   @Input() referenceLines: any;
   @Input() showRefLabels: boolean = true;
-  @Input() xAxisMinScale: any;
-  @Input() yAxisMinScale: number = 0;
+  @Input() minimumDeviation: number;
+  @Input() xScaleMin: any;
+  @Input() xScaleMax: any;
+  @Input() yScaleMin: number;
+  @Input() yScaleMax: number;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
@@ -259,12 +259,8 @@ export class LineChartComponent extends BaseChartComponent {
 
     this.transform = `translate(${ this.dims.xOffset } , ${ this.margin[0] })`;
 
-    const pageUrl = this.location instanceof PathLocationStrategy
-      ? this.location.path()
-      : '';
-
     this.clipPathId = 'clip' + id().toString();
-    this.clipPath = `url(${pageUrl}#${this.clipPathId})`;
+    this.clipPath = `url(#${this.clipPathId})`;
   }
 
   updateTimeline(): void {
@@ -281,7 +277,7 @@ export class LineChartComponent extends BaseChartComponent {
     let values = [];
 
     for (const results of this.results) {
-      for (const d of results.series){
+      for (const d of results.series) {
         if (!values.includes(d.name)) {
           values.push(d.name);
         }
@@ -291,13 +287,23 @@ export class LineChartComponent extends BaseChartComponent {
     this.scaleType = this.getScaleType(values);
     let domain = [];
 
-    if (this.scaleType === 'time') {
-      const min = Math.min(...values);
+    if (this.scaleType === 'linear') {
+      values = values.map(v => Number(v));
+    }
 
-      const max = this.xAxisMinScale
-        ? Math.max(this.xAxisMinScale, ...values)
+    let min;
+    let max;
+    if (this.scaleType === 'time' || this.scaleType === 'linear') {
+      min = this.xScaleMin
+        ? this.xScaleMin
+        : Math.min(...values);
+
+      max = this.xScaleMax
+        ? this.xScaleMax
         : Math.max(...values);
+    }
 
+    if (this.scaleType === 'time') {
       domain = [new Date(min), new Date(max)];
       this.xSet = [...values].sort((a, b) => {
         const aDate = a.getTime();
@@ -307,16 +313,9 @@ export class LineChartComponent extends BaseChartComponent {
         return 0;
       });
     } else if (this.scaleType === 'linear') {
-      values = values.map(v => Number(v));
-
-      const min = Math.min(...values);
-
-      const max = this.xAxisMinScale
-        ? Math.max(this.xAxisMinScale, ...values)
-        : Math.max(...values);
-
       domain = [min, max];
-      this.xSet = [...values].sort();
+      // Use compare function to sort numbers numerically
+      this.xSet = [...values].sort((a, b) => (a - b));
     } else {
       domain = values;
       this.xSet = values;
@@ -328,7 +327,7 @@ export class LineChartComponent extends BaseChartComponent {
   getYDomain(): any[] {
     const domain = [];
     for (const results of this.results) {
-      for (const d of results.series){
+      for (const d of results.series) {
         if (domain.indexOf(d.value) < 0) {
           domain.push(d.value);
         }
@@ -347,6 +346,11 @@ export class LineChartComponent extends BaseChartComponent {
       }
     }
 
+    const values = [...domain];
+    if (!this.autoScale) {
+      values.push(0);
+    }
+
     let min = Math.min(...domain);
 
     // minimumDeviation requires autoscaling AND a domain value bigger then 0
@@ -358,8 +362,8 @@ export class LineChartComponent extends BaseChartComponent {
       min = Math.min(0, min);
     }
 
-    const max = this.yAxisMinScale
-      ? Math.max(this.yAxisMinScale, ...domain)
+    const max = this.yScaleMin
+      ? Math.max(this.yScaleMin, ...domain)
       : Math.max(...domain);
 
     return [min, max];
