@@ -55,19 +55,7 @@ import { id } from '../utils/id';
           [tickFormatting]="xAxisTickFormatting"
           (dimensionsChanged)="updateXAxisHeight($event)">
         </svg:g>
-        <svg:g ngx-charts-y-axis
-          *ngIf="yAxis"
-          [yScale]="yScale"
-          [dims]="dims"
-          [showGridLines]="showGridLines"
-          [showLabel]="showYAxisLabel"
-          [labelText]="yAxisLabel"
-          [tickFormatting]="yAxisTickFormatting"
-          [referenceLines]="referenceLines"
-          [showRefLines]="showRefLines"
-          [showRefLabels]="showRefLabels"
-          (dimensionsChanged)="updateYAxisWidth($event)">
-        </svg:g>
+
         <svg:g [attr.clip-path]="clipPath">
           <svg:g *ngFor="let series of results; trackBy:trackBy" [@animationState]="'active'">
             <svg:g ngx-charts-line-series
@@ -95,7 +83,19 @@ import { id } from '../utils/id';
               [tooltipTemplate]="seriesTooltipTemplate"
               (hover)="updateHoveredVertical($event)"
             />
-
+            <svg:g ngx-charts-y-axis
+              *ngIf="yAxis"
+              [yScale]="yScale"
+              [dims]="dims"
+              [showGridLines]="showGridLines"
+              [showLabel]="showYAxisLabel"
+              [labelText]="yAxisLabel"
+              [tickFormatting]="yAxisTickFormatting"
+              [referenceLines]="referenceLines"
+              [showRefLines]="showRefLines"
+              [showRefLabels]="showRefLabels"
+              (dimensionsChanged)="updateYAxisWidth($event)">
+            </svg:g>
             <svg:g *ngFor="let series of results">
               <svg:g ngx-charts-circle-series
                 [xScale]="xScale"

@@ -72,6 +72,7 @@ var BarVerticalComponent = (function (_super) {
     BarVerticalComponent.prototype.getYDomain = function () {
         var values = this.results.map(function (d) { return d.value; });
         var min = Math.min.apply(Math, values);
+        // minimumDeviation requires autoscaling AND a domain value bigger then 0
         if (!!this.minimumDeviation && (min > 0) && this.autoScale) {
             min = min * (1 - (this.minimumDeviation / 100));
         }
