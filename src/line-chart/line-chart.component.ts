@@ -114,7 +114,7 @@ import { id } from '../utils/id';
         </svg:g>
       </svg:g>
       <svg:g ngx-charts-timeline
-        *ngIf="timeline && scaleType === 'time'"
+        *ngIf="timeline && scaleType != 'ordinal'"
         [attr.transform]="timelineTransform"
         [results]="results"
         [view]="[timelineWidth, height]"
@@ -133,6 +133,7 @@ import { id } from '../utils/id';
             [scaleType]="scaleType"
             [curve]="curve"
             [hasRange]="hasRange"
+            [animations]="animations"
           />
         </svg:g>
       </svg:g>
@@ -179,11 +180,12 @@ export class LineChartComponent extends BaseChartComponent {
   @Input() showRefLines: boolean = false;
   @Input() referenceLines: any;
   @Input() showRefLabels: boolean = true;
-  @Input() minimumDeviation: number;
   @Input() xScaleMin: any;
   @Input() xScaleMax: any;
   @Input() yScaleMin: number;
   @Input() yScaleMax: number;
+  @Input() minimumDeviation: number;
+
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
@@ -277,7 +279,7 @@ export class LineChartComponent extends BaseChartComponent {
     let values = [];
 
     for (const results of this.results) {
-      for (const d of results.series) {
+      for (const d of results.series){
         if (!values.includes(d.name)) {
           values.push(d.name);
         }
@@ -351,20 +353,13 @@ export class LineChartComponent extends BaseChartComponent {
       values.push(0);
     }
 
-    let min = Math.min(...domain);
+    const min = this.yScaleMin
+      ? this.yScaleMin
+      : Math.min(...values);
 
-    // minimumDeviation requires autoscaling AND a domain value bigger then 0
-    if(!!this.minimumDeviation && (min > 0) && this.autoScale) {
-      min = min * (1 - (this.minimumDeviation / 100));
-    }
-
-    if (!this.autoScale) {
-      min = Math.min(0, min);
-    }
-
-    const max = this.yScaleMin
-      ? Math.max(this.yScaleMin, ...domain)
-      : Math.max(...domain);
+    const max = this.yScaleMax
+      ? this.yScaleMax
+      : Math.max(...values);
 
     return [min, max];
   }

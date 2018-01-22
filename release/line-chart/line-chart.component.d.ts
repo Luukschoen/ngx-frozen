@@ -26,7 +26,6 @@ export declare class LineChartComponent extends BaseChartComponent {
     showRefLines: boolean;
     referenceLines: any;
     showRefLabels: boolean;
-    minimumDeviation: number;
     xScaleMin: any;
     xScaleMax: any;
     yScaleMin: number;

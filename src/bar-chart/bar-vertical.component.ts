@@ -22,6 +22,7 @@ import { BaseChartComponent } from '../common/base-chart.component';
       [showLegend]="legend"
       [legendOptions]="legendOptions"
       [activeEntries]="activeEntries"
+      [animations]="animations"
       (legendLabelClick)="onClick($event)"
       (legendLabelActivate)="onActivate($event)"
       (legendLabelDeactivate)="onDeactivate($event)">
@@ -69,6 +70,7 @@ import { BaseChartComponent } from '../common/base-chart.component';
           [tooltipTemplate]="tooltipTemplate"
           [activeEntries]="activeEntries"
           [roundEdges]="roundEdges"
+          [animations]="animations"
           (activate)="onActivate($event)"
           (deactivate)="onDeactivate($event)"
           (select)="onClick($event)">
@@ -102,6 +104,7 @@ export class BarVerticalComponent extends BaseChartComponent {
   @Input() barPadding = 8;
   @Input() roundDomains: boolean = false;
   @Input() roundEdges: boolean = true;
+  @Input() yScaleMax: number;
   @Input() showRefLines: boolean = false;
   @Input() referenceLines: any;
   @Input() showRefLabels: boolean = true;
@@ -185,10 +188,10 @@ export class BarVerticalComponent extends BaseChartComponent {
       min = Math.min(0, min);
     }
 
-    const max = this.yAxisMinScale
-      ? Math.max(this.yAxisMinScale, ...values)
+    const min = Math.min(0, ...values);
+    const max = this.yScaleMax
+      ? Math.max(this.yScaleMax, ...values)
       : Math.max(...values);
-
     return [min, max];
   }
 

@@ -22,7 +22,7 @@ export declare class BarHorizontal2DComponent extends BaseChartComponent {
     barPadding: number;
     roundDomains: boolean;
     roundEdges: boolean;
-    xAxisMinScale: number;
+    xScaleMax: number;
     activate: EventEmitter<any>;
     deactivate: EventEmitter<any>;
     tooltipTemplate: TemplateRef<any>;
