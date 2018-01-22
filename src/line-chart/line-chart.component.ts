@@ -186,7 +186,6 @@ export class LineChartComponent extends BaseChartComponent {
   @Input() yScaleMax: number;
   @Input() minimumDeviation: number;
 
-
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
 
@@ -279,7 +278,7 @@ export class LineChartComponent extends BaseChartComponent {
     let values = [];
 
     for (const results of this.results) {
-      for (const d of results.series){
+      for (const d of results.series) {
         if (!values.includes(d.name)) {
           values.push(d.name);
         }
