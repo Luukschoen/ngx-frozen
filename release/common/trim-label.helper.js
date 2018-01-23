@@ -13,7 +13,7 @@ export function trimLabel(s, max) {
         return s;
     }
     else {
-        return s.slice(0, max) + "...";
+        return s;
     }
 }
 //# sourceMappingURL=trim-label.helper.js.map
