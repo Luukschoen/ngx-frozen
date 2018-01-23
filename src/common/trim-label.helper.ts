@@ -11,6 +11,6 @@ export function trimLabel(s, max = 16): string {
   if(s.length <= max) {
     return s;
   } else {
-    return `${s.slice(0, max)}...`;
+    return s;
   }
 }
