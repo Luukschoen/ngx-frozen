@@ -374,9 +374,7 @@ export class LineChartComponent extends BaseChartComponent {
   }
 
   if (!this.autoScale) {
-       min = this.yScaleMin
-         ? this.yScaleMin
-         : Math.min(...values);
+       min = Math.min(0, min);
   }
     // const min = this.yScaleMin
     //   ? this.yScaleMin

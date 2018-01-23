@@ -183,9 +183,7 @@ var LineChartComponent = /** @class */ (function (_super) {
             min = min * (1 - (this.minimumDeviation / 100));
         }
         if (!this.autoScale) {
-            min = this.yScaleMin
-                ? this.yScaleMin
-                : Math.min.apply(Math, values);
+            min = Math.min(0, min);
         }
         // const min = this.yScaleMin
         //   ? this.yScaleMin
