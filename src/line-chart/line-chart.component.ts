@@ -352,6 +352,7 @@ export class LineChartComponent extends BaseChartComponent {
       values.push(0);
     }
 
+    let min;
     let min_value = Math.min(...values);
 
     // minimumDeviation requires autoscaling AND a domain value bigger then 0
@@ -363,14 +364,21 @@ export class LineChartComponent extends BaseChartComponent {
          min_value = Math.min(0, min_value);
     }
 
-    const min = this.yScaleMin
-          ? this.yScaleMin
-          : min_value;
+    if (!!this.yScaleMin) {
+      min = this.yScaleMin;
+    } else {
+      min = min_value;
+    }
+    console.log(min, min_value, this.minimumDeviation);
+    // const min = this.yScaleMin
+    //       ? this.yScaleMin
+    //       : min_value;
 
     const max = this.yScaleMax
       ? this.yScaleMax
       : Math.max(...values);
 
+      console.log(min,max);
     return [min, max];
   }
 

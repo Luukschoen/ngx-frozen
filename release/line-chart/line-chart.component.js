@@ -164,6 +164,7 @@ var LineChartComponent = /** @class */ (function (_super) {
         if (!this.autoScale) {
             values.push(0);
         }
+        var min;
         var min_value = Math.min.apply(Math, values);
         // minimumDeviation requires autoscaling AND a domain value bigger then 0
         if (!!this.minimumDeviation && (min_value > 0) && this.autoScale) {
@@ -172,12 +173,20 @@ var LineChartComponent = /** @class */ (function (_super) {
         if (!this.autoScale) {
             min_value = Math.min(0, min_value);
         }
-        var min = this.yScaleMin
-            ? this.yScaleMin
-            : min_value;
+        if (!!this.yScaleMin) {
+            min = this.yScaleMin;
+        }
+        else {
+            min = min_value;
+        }
+        console.log(min, min_value, this.minimumDeviation);
+        // const min = this.yScaleMin
+        //       ? this.yScaleMin
+        //       : min_value;
         var max = this.yScaleMax
             ? this.yScaleMax
             : Math.max.apply(Math, values);
+        console.log(min, max);
         return [min, max];
     };
     LineChartComponent.prototype.getSeriesDomain = function () {
