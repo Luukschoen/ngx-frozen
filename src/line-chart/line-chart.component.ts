@@ -352,9 +352,19 @@ export class LineChartComponent extends BaseChartComponent {
       values.push(0);
     }
 
-    const min = this.yScaleMin
-      ? this.yScaleMin
-      : Math.min(...values);
+  let min = Math.min(...domain);
+
+  // minimumDeviation requires autoscaling AND a domain value bigger then 0
+  if (!!this.minimumDeviation && (this.yScaleMin > 0) && this.autoScale) {
+       min = this.yScaleMin * (1 - (this.minimumDeviation / 100));
+  }
+
+  if (!this.autoScale) {
+       min = Math.min(0, min);
+  }
+    // const min = this.yScaleMin
+    //   ? this.yScaleMin
+    //   : Math.min(...values);
 
     const max = this.yScaleMax
       ? this.yScaleMax
