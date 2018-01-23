@@ -8298,7 +8298,7 @@ var XAxisTicksComponent = /** @class */ (function () {
         this.tickPadding = 3;
         this.textAnchor = 'middle';
         this.maxTicksLength = 0;
-        this.maxAllowedLength = 16;
+        this.maxAllowedLength = 50;
         this.height = 0;
         this.trimLabel = __WEBPACK_IMPORTED_MODULE_1__trim_label_helper__["a" /* trimLabel */];
     }

@@ -63,7 +63,7 @@ export class XAxisTicksComponent implements OnChanges, AfterViewInit {
   tickPadding: number = 3;
   textAnchor: string = 'middle';
   maxTicksLength: number = 0;
-  maxAllowedLength: number = 16;
+  maxAllowedLength: number = 50;
   trimLabel: (o: any) => any;
   adjustedScale: any;
   tickValues: any;
