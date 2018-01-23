@@ -179,10 +179,6 @@ var LineChartComponent = /** @class */ (function (_super) {
         else {
             min = min_value;
         }
-        console.log(min, min_value, this.minimumDeviation);
-        // const min = this.yScaleMin
-        //       ? this.yScaleMin
-        //       : min_value;
         var max = this.yScaleMax
             ? this.yScaleMax
             : Math.max.apply(Math, values);

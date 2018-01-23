@@ -369,10 +369,6 @@ export class LineChartComponent extends BaseChartComponent {
     } else {
       min = min_value;
     }
-    console.log(min, min_value, this.minimumDeviation);
-    // const min = this.yScaleMin
-    //       ? this.yScaleMin
-    //       : min_value;
 
     const max = this.yScaleMax
       ? this.yScaleMax
