@@ -164,21 +164,17 @@ var LineChartComponent = /** @class */ (function (_super) {
         if (!this.autoScale) {
             values.push(0);
         }
-        // let min = Math.min(...domain);
-        //
-        // // minimumDeviation requires autoscaling AND a domain value bigger then 0
-        // if (!!this.minimumDeviation && (min > 0) && this.autoScale) {
-        //      min = min * (1 - (this.minimumDeviation / 100));
-        // }
-        // if (!this.autoScale) {
-        //      min = Math.min(0, min);
-        // }
-        // const min = this.yScaleMin
-        //   ? this.yScaleMin
-        //   : Math.min(...values);
+        var min_value = Math.min.apply(Math, values);
+        // minimumDeviation requires autoscaling AND a domain value bigger then 0
+        if (!!this.minimumDeviation && (min_value > 0) && this.autoScale) {
+            min_value = min_value * (1 - (this.minimumDeviation / 100));
+        }
+        if (!this.autoScale) {
+            min_value = Math.min(0, min_value);
+        }
         var min = this.yScaleMin
             ? this.yScaleMin
-            : Math.min.apply(Math, values);
+            : min_value;
         var max = this.yScaleMax
             ? this.yScaleMax
             : Math.max.apply(Math, values);
