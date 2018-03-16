@@ -110,6 +110,7 @@ export class BarVerticalComponent extends BaseChartComponent {
   @Input() showRefLabels: boolean = true;
   @Input() yAxisMinScale: number = 0;
 
+
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
 
@@ -191,6 +192,7 @@ export class BarVerticalComponent extends BaseChartComponent {
     const max = this.yScaleMax
       ? Math.max(this.yScaleMax, ...values)
       : Math.max(...values);
+
     return [min, max];
   }
 
