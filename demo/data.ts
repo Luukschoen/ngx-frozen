@@ -14,7 +14,7 @@ export const single = [
     value: 36745
   },
   {
-    name: 'United KingdomUnited KingdomUnited KingdomUnited Kingdom',
+    name: 'United Kingdom',
     value: 36240
   },
   {
